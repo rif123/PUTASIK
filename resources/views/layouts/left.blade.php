@@ -28,6 +28,19 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
+
+                  <!-- Master -->
+
+                   <li><a><i class="fa fa-home"></i> Master <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url(route('home')) }}">Kota</a></li>
+                      <li><a href="{{ url(route('districts')) }}">Districts</a></li>
+                      <li><a href="{{ url(route('masterJenis')) }}">Jenis</a></li>
+                    </ul>
+                  </li>
+
+                  <!-- end master -->
+
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.html">Dashboard</a></li>

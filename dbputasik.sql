@@ -53,15 +53,5 @@ CREATE TABLE `t_village` (
   CONSTRAINT `id_districts` FOREIGN KEY (`id_districts`) REFERENCES `t_districts` (`id_districts`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- ----------------------------
---  Table structure for `users`
--- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `iduser` int(11) NOT NULL AUTO_INCREMENT,
-  `user` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 SET FOREIGN_KEY_CHECKS = 1;

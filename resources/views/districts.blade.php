@@ -23,11 +23,11 @@
 
             <div class="row">
               
-              <!-- form Kota -->
-              <div class="col-md-6 col-xs-12">
+              <!-- form Districts -->
+              <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Input Kota <small>pekerjaan umun kota tasik</small></h2>
+                    <h2>Form Districts </h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -46,46 +46,45 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br/>
-                  
 
-                  @if(empty($acceptData))  
-                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('inputCityaProcees')) }}" method="POST">
-                  @else
-                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('update')) }}" method="POST">
-                  @endif 
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Kota</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Nama Kota" name="nama_kota" value="{{ !empty($acceptData[0]['name_city']) ? $acceptData[0]['name_city'] : '' }}">
+                    <form class="form-horizontal form-label-left" novalidate method="POST" action="{{ url(route('saveDistricts')) }}">
+                  
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Districts <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="districts" placeholder="Input your districts ..." required="required" type="text">
                         </div>
                       </div>
-                      
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Kota<span class="required"> *</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="selectName">
+                              <option>Nama Kota</option>
+                            @foreach($showData as $key => $val)
+                              <option value="{{ $val['id_city'] }}">{{ $val['name_city'] }}</option>
+                            @endforeach
+                            </select>
+                      </div>
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          {{ csrf_field() }}
-                          @if(empty($acceptData))
-                            <button type="submit" class="btn btn-success">Simpan</button>
-                          @else
-                            <input type="hidden" name="id_namaKota" value="{{ $acceptData[0]['id_city'] }}">
-                            <button type="submit" class="btn btn-success">Update</button>
-                          @endif
+                        {{ csrf_field() }}
+                        <div class="col-md-6 col-md-offset-3">
+                          <button id="send" type="submit" class="btn btn-success">Simpan</button>
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-              <!-- end form kota -->
+              <!-- end form Districts -->
 
-             
-
-              <!-- Show Data table-->
-             <div class="col-md-6 col-sm-6 col-xs-12">
+              <!-- table -->
+              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>List Nama Kota <small>data perkerjaan umum</small></h2>
+                    <h2>List Data</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -104,34 +103,33 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
-                    <table class="table">
+                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                       <thead>
                         <tr>
-                          <th>No</th>
+                          <th>
+                             <th><input type="checkbox" id="check-all" class="flat"></th>
+                          </th>
+                          <th>Nomer</th>
+                          <th>Nama District</th>
                           <th>Nama Kota</th>
-                          <th>Edit</th>
-                          <th>Delet</th>
                         </tr>
                       </thead>
-                        <?php $i = 1 ?>
-                          <tbody>
-                        @foreach( $listData as $key => $val)
-                            <tr>
-                              <th>{{ $i }}</th>
-                              <td>{{ $val['name_city'] }}</td>
-                              <td><a href=" {{ url('/admin/editCity').'?id='.$val['id_city'] }} ">Edit</a></td>
-                              <td><a href="{{ url('/admin/deleteCity').'?id='.$val['id_city'] }}">Delet</a></td>
-                            </tr>
-                           <?php  $i++; ?>
-                        @endforeach
-                          </tbody>
-                    </table>
 
+                      <tbody>
+                        <tr>
+                          <td>
+                            <th><input type="checkbox" id="check-all" class="flat"></th>
+                          </td>
+                          <td>Tiger Nixon</td>
+                          <td>System Architect</td>
+                          <td>Edinburgh</td>
+                        </tr>
+                       
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-             </div>
-              <!-- end data table -->
+              </div>
 
             </div>
           </div>
