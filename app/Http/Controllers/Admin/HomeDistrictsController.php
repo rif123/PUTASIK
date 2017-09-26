@@ -24,6 +24,7 @@ class HomeDistrictsController extends Controller
   	$getInsert->save();
 
   	return redirect(route('districts'));
-
   }
+
+
 }

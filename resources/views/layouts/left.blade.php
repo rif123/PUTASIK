@@ -36,6 +36,8 @@
                       <li><a href="{{ url(route('home')) }}">Kota</a></li>
                       <li><a href="{{ url(route('districts')) }}">Districts</a></li>
                       <li><a href="{{ url(route('masterJenis')) }}">Jenis</a></li>
+                      <li><a href="{{ url(route('masterStatus')) }}">Status</a></li>
+                      <li><a href="{{ url(route('masterStatusBarang')) }}">Barang</a></li>
                     </ul>
                   </li>
 

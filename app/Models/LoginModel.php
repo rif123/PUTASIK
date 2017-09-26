@@ -11,7 +11,7 @@ class LoginModel extends Model
     protected $table = 'users';
 	protected $primaryKey = 'iduser';
 	public $timestamps = false;
-	protected $fillable = ['email','password'];
+	protected $fillable = ['email','password','creator','created','editor','edited','id_type_user'];
 
 	public static function getUser($get_email,$get_password){
 		

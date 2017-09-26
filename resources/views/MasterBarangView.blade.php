@@ -27,7 +27,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Jenis <small>pekerjaan umun kota tasik</small></h2>
+                    <h2>Jenis Barang <small>pekerjaan umun kota tasik</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -50,12 +50,12 @@
                   
 
                   
-                    <form class="form-horizontal form-label-left input_mask" action="" method="POST">
-                   
+                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('saveBarang')) }}" method="POST">
+                  
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Kota</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Barang</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Nama Kota" name="nama_kota" value="{{ !empty($acceptData[0]['name_city']) ? $acceptData[0]['name_city'] : '' }}">
+                          <input type="text" class="form-control" placeholder="" name="barang" value="">
                         </div>
                       </div>
                       
@@ -63,7 +63,9 @@
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           {{ csrf_field() }}
+                          
                             <button type="submit" class="btn btn-success">Simpan</button>
+                        
                         </div>
                       </div>
                     </form>
@@ -102,18 +104,21 @@
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>Nama Kota</th>
+                          <th>Barang</th>
                           <th>Edit</th>
                           <th>Delet</th>
                         </tr>
                       </thead>
+                        
                           <tbody>
+                        
                             <tr>
                               <th></th>
                               <td></td>
                               <td><a href="">Edit</a></td>
                               <td><a href="">Delet</a></td>
                             </tr>
+                            
                           </tbody>
                     </table>
 

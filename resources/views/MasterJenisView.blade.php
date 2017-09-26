@@ -23,11 +23,11 @@
 
             <div class="row">
               
-              <!-- form Kota -->
+              <!-- form Jenis -->
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Input Kota <small>pekerjaan umun kota tasik</small></h2>
+                    <h2>Jenis <small>pekerjaan umun kota tasik</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -49,15 +49,15 @@
                     <br/>
                   
 
-                  @if(empty($acceptData))  
-                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('inputCityProcees')) }}" method="POST">
+                  @if(empty($accept))
+                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('saveJenis')) }}" method="POST">
                   @else
                     <form class="form-horizontal form-label-left input_mask" action="{{ url(route('update')) }}" method="POST">
-                  @endif 
+                  @endif
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Kota</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Nama Kota" name="name_kota" value="{{ !empty($acceptData[0]['name_city']) ? $acceptData[0]['name_city'] : '' }}">
+                          <input type="text" class="form-control" placeholder="" name="jenis" value="{{ !empty($accept[0]['name_jenis']) ? $accept[0]['name_jenis'] : '' }}">
                         </div>
                       </div>
                       
@@ -65,10 +65,10 @@
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           {{ csrf_field() }}
-                          @if(empty($acceptData))
+                          @if(empty($accept))
                             <button type="submit" class="btn btn-success">Simpan</button>
                           @else
-                            <input type="hidden" name="id_namaKota" value="{{ $acceptData[0]['id_city'] }}">
+                            <input type="hidden" name="id" value="{{ $accept[0]['id_jenis'] }}">
                             <button type="submit" class="btn btn-success">Update</button>
                           @endif
                         </div>
@@ -77,13 +77,15 @@
                   </div>
                 </div>
               </div>
-              <!-- end form kota -->
+              <!-- end form Jenis -->
+
+             
 
               <!-- Show Data table-->
              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>List Nama Kota <small>data perkerjaan umum</small></h2>
+                    <h2> Data Jenis  <small>data perkerjaan umum</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -107,22 +109,22 @@
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>Nama Kota</th>
+                          <th>Jenis</th>
                           <th>Edit</th>
                           <th>Delet</th>
                         </tr>
                       </thead>
-                        <?php $i = 1; ?>
+                        <?php $i = 1 ?>
                           <tbody>
-                        @foreach($listData as $key => $val)
+                            @foreach($listData as $key => $val)
                             <tr>
                               <th>{{ $i }}</th>
-                              <td>{{ $val['name_city'] }}</td>
-                              <td><a href=" {{ url('/admin/editCity').'?id='.$val['id_city'] }} ">Edit</a></td>
-                              <td><a href="{{ url('/admin/deleteCity').'?id='.$val['id_city'] }}">Delet</a></td>
+                              <td>{{ $val['name_jenis'] }}</td>
+                              <td><a href="{{ url('/admin/edit-data').'?id='.$val['id_jenis'] }}">Edit</a></td>
+                              <td><a href="{{ url('/admin/delete').'?id='.$val['id_jenis'] }}">Delet</a></td>
                             </tr>
-                           <?php  $i++; ?>
-                        @endforeach
+                            @endforeach
+                            <?php $i++; ?>
                           </tbody>
                     </table>
 

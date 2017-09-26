@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\KotaModel;  // untuk memanggil model
+use App\Models\JenisModel;  // untuk memanggil model
 use Illuminate\Support\Facades\Input;
 
 class MasterJenisController extends Controller
@@ -16,7 +16,8 @@ class MasterJenisController extends Controller
      */
     public function index()
     {
-        return view('JenisView');
+        $Data['listData'] = JenisModel::get(); 
+        return view('MasterJenisView',$Data);
     }
 
     /**
@@ -24,9 +25,15 @@ class MasterJenisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function saveJenis()
     {
-        //
+        $getData = Input::all();
+        
+        $getInsert = new JenisModel;
+        $getInsert->name_jenis = $getData['jenis'];
+        $getInsert->save();
+
+        return redirect(route('masterJenis'));
     }
 
     /**
@@ -35,31 +42,15 @@ class MasterJenisController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+   
+    public function editData()
     {
-        //
-    }
+        $getDataEdit = Input::get('id');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $getExport['accept'] = JenisModel::where('id_jenis',$getDataEdit)->get()->toArray();
+        $getExport['listData'] = JenisModel::get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('masterJenisView',$getExport);
     }
 
     /**
@@ -69,9 +60,15 @@ class MasterJenisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update()
     {
-        //
+        $getData = Input::all();
+        
+        $getUpdate = JenisModel::find(Input::get('id'));
+        $getUpdate->name_jenis = $getData['jenis'];
+        $getUpdate->update();
+
+        return redirect(route('masterJenis'));
     }
 
     /**
@@ -80,8 +77,11 @@ class MasterJenisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete()
     {
-        //
+        $getDelet = JenisModel::find(Input::get('id'));
+        $getDelet->delete();
+
+        return redirect(route('masterJenis'));
     }
 }

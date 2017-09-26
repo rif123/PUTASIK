@@ -116,14 +116,16 @@
                       </thead>
 
                       <tbody>
+                          @foreach($showData as $key => $val)
                         <tr>
                           <td>
                             <th><input type="checkbox" id="check-all" class="flat"></th>
                           </td>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
+                          @endforeach
                        
                       </tbody>
                     </table>

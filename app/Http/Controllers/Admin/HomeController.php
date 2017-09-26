@@ -20,14 +20,14 @@ class HomeController extends Controller
     	return redirect('login');
     }
 
-    public function inputCityaProcees(){
+    public function inputCityProcees(){
     	$getCity = Input::all();
-
+        
     	$getData = new KotaModel;
-    	$getData->name_city = $getCity['nama_kota'];
+        $getData->name_city = $getCity['name_kota'];
     	$getData->save();
 
-    	return view('home');
+    	return redirect(route('home'));
     }
 
     public function deleteCity(){
@@ -49,7 +49,7 @@ class HomeController extends Controller
     	$getData = Input::all();
     	
     	$getUpdate = KotaModel::find(Input::get('id_namaKota'));
-    	$getUpdate->name_city = $getData['nama_kota'];
+    	$getUpdate->name_city = $getData['name_kota'];
     	$getUpdate->update();
 
     	return redirect(route('home'));
