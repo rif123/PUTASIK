@@ -27,7 +27,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Jenis Barang <small>pekerjaan umun kota tasik</small></h2>
+                    <h2>User <small>pekerjaan umun kota tasik</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -51,14 +51,15 @@
 
                   <!-- barang -->
                   @if(empty($accept))
-                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('saveBarang')) }}" method="POST">
+                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('saveUser')) }}" method="POST">
                   @else
-                      <form class="form-horizontal form-label-left input_mask" action="{{ url(route('updateBarang')) }}" method="POST">
+                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('updateUser')) }}" method="POST">
+
                   @endif
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Barang</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">User</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="" name="barang" value="{{ !empty($accept[0]['name_status_barang']) ? $accept[0]['name_status_barang'] : '' }}">
+                          <input type="text" class="form-control" placeholder="" name="user" value="{{ !empty($accept[0]['name_type']) ? $accept[0]['name_type'] : '' }}">
                         </div>
                       </div>
                       
@@ -69,7 +70,7 @@
                           @if(empty($accept))
                             <button type="submit" class="btn btn-success">Simpan</button>
                           @else
-                            <input type="hidden" name="id_barang" value="{{ $accept[0]['id_status_barang'] }}">
+                            <input type="hidden" name="id_user" value="{{ $accept[0]['id_type_user'] }}">
                             <button type="submit" class="btn btn-success">Update</button>
                           @endif
                         </div>
@@ -86,7 +87,7 @@
              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2> Data Jenis  <small>data perkerjaan umum</small></h2>
+                    <h2> Data User  <small>data perkerjaan umum</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -110,22 +111,22 @@
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>Barang</th>
+                          <th>Name User</th>
                           <th>Edit</th>
                           <th>Delet</th>
                         </tr>
                       </thead>
-                        <?php $i =1; ?>
+                        <?php $no = 1; ?>
                           <tbody>
-                        @foreach($listData as $key => $val)
+                          @foreach($listData as $key => $val)
                             <tr>
-                              <th>{{ $i }}</th>
-                              <td>{{ $val['name_status_barang'] }}</td>
-                              <td><a href="{{ url(route('editBarang').'?id='.$val['id_status_barang']) }}">Edit</a></td>
-                              <td><a href="{{ url(route('deleteBarang').'?id='.$val['id_status_barang']) }}">Delet</a></td>
+                              <th>{{ $no }}</th>
+                              <td>{{ $val['name_type'] }}</td>
+                              <td><a href="{{ url(route('editUser').'?id='.$val['id_type_user']) }}">Edit</a></td>
+                              <td><a href="{{ url(route('deleteUser').'?id='.$val['id_type_user']) }}">Delet</a></td>
                             </tr>
-                            <?php $i++; ?>
-                        @endforeach
+                          <?php $no++; ?>
+                          @endforeach
                           </tbody>
                     </table>
 

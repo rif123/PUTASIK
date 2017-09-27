@@ -23,8 +23,9 @@
     <link href="{{ URL::asset('') }}vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{{ URL::asset('') }}vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('') }}build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('') }}plugins/swall/sweetalert.css">
     @yield('header')
   </head>

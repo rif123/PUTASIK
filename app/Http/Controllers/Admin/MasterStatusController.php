@@ -31,7 +31,7 @@ class MasterStatusController extends Controller
         return view('MasterStatusView',$getExport);
    }
    public function update(){
-   		$getData = Input::all();
+   		  $getData = Input::all();
         
         $getUpdate = StatusModel::find(Input::get('id'));
         $getUpdate->name_status = $getData['status'];

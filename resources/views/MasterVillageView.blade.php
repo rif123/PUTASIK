@@ -23,11 +23,11 @@
 
             <div class="row">
               
-              <!-- form Districts -->
+              <!-- form Village -->
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Form Districts </h2>
+                    <h2>Form Village </h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -46,36 +46,38 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      @if (!empty ($editData[0]['id_districts']))
-                    <form class="form-horizontal form-label-left" novalidate method="POST" action="{{ url(route('updateDistricts')) }}">
-                      @else
-                    <form class="form-horizontal form-label-left" novalidate method="POST" action="{{ url(route('saveDistricts')) }}">
-                      @endif
+                    <!-- form -->
+                    @if(empty($editData))
+                    <form class="form-horizontal form-label-left" novalidate method="POST" action="{{ url(route('saveVillage')) }}">
+                    @else
+                      
+                    <form class="form-horizontal form-label-left" novalidate method="POST" action="{{ url(route('updateVillage')) }}">
+                    @endif
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Districts <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Village <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="districts" placeholder="Input your districts ..." required="required" type="text" value="{{! empty ($editData[0]['name_districts']) ? $editData[0]['name_districts'] : ''}}">
+                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="village" placeholder="Input your Village ..." required="required" type="text" value="{{! empty ($editData[0]['name_village']) ? $editData[0]['name_village'] : ''}}">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Kota<span class="required"> *</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Districts <span class="required"> *</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" name="selectName">
-                              <option>Nama Kota</option>
-                            @foreach($showData as $key => $val)
-                              <?php 
-                              $selected = "";
-                               ?>
-                                @if (!empty ($editData[0]['id_city']))
-                                      @if ($editData[0]['id_city'] == $val['id_city'])
-                                          <?php 
-                                          $selected = "selected";
-                                           ?>
-                                      @endif
-                                  @endif
-                              <option value="{{ $val['id_city'] }}" {{$selected}}>{{ $val['name_city'] }}</option>
-                            @endforeach
+                            <select class="form-control" name="selectDistricts">
+                              <option>Districts</option>
+                              @foreach($showData as $key => $val)
+                                <?php 
+                                $selected = '';
+                                 ?>
+                                @if(!empty($editData[0]['id_districts']))
+                                    @if($editData[0]['id_districts'] == $val['id_districts'])
+                                      <?php 
+                                        $selected = "selected";
+                                       ?>
+                                    @endif
+                                @endif
+                                <option value="{{ $val['id_districts'] }}"{{$selected}} >{{ $val['name_districts'] }}</option>
+                              @endforeach                            
                             </select>
                       </div>
 
@@ -83,13 +85,12 @@
                       <div class="form-group">
                         {{ csrf_field() }}
                         <div class="col-md-6 col-md-offset-3">
-                           @if (!empty ($editData[0]['id_districts']))
+                        @if(empty($editData))
+                          <button id="send" type="submit" class="btn btn-success">Simpan</button>
+                        @else
+                          <input type="hidden" name="id_v" value="{{$editData[0]['id_village']}}">
                           <button id="send" type="submit" class="btn btn-success">Update</button>
-                          <input type="hidden" name="id_districts" value="{{$editData[0]['id_districts']}}">
-                          @else
-                            <button id="send" type="submit" class="btn btn-success">Simpan</button>
-                          @endif
-
+                        @endif
                         </div>
                       </div>
                     </form>
@@ -128,29 +129,27 @@
                              <th><input type="checkbox" id="check-all" class="flat"></th>
                           </th>
                           <th>Nomer</th>
-                          <th>Nama District</th>
-                          <th>Nama Kota</th>
+                          <th>Nama Village</th>
+                          <th>Nama Districts</th>
                           <th>Action</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        <?php $i=1;
-                      
-                         ?>
+                          <?php $i=1;?>
                           @foreach($allData as $key => $val)
-                        <tr>
-                          <td>
-                            <th><input type="checkbox" id="check-all" class="flat"></th>
-                          </td>
-                          <td>{{$i}}</td>
-                          <td>{{$val->name_districts}}</td>
-                          <td>{{$val->name_city}}</td>
-                          <td><a href="{{url('admin/districts/edit').'?id='. $val->id_districts}}">Edit</a> || <a href="{{url('admin/districts/delete').'?id='. $val->id_districts}}">Delete</a></td>
-                        </tr>
-                        <?php $i++; ?>
+                            <tr>
+                              <td>
+                                <th><input type="checkbox" id="check-all" class="flat"></th>
+                              </td>
+
+                              <td>{{ $i }}</td>
+                              <td>{{$val->name_village}}</td>
+                              <td>{{$val->name_districts}}</td>
+                              <td><a href="{{url('admin/village/edit').'?id='. $val->id_village}}">Edit</a> || <a href="{{url('admin/village/delete').'?id='. $val->id_village}}">Delete</a></td>
+                            </tr>
+                            <?php $i++; ?>
                           @endforeach
-                       
                       </tbody>
                     </table>
                   </div>

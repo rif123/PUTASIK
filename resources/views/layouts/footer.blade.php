@@ -35,8 +35,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="{{ URL::asset('') }}vendors/moment/min/moment.min.js"></script>
     <script src="{{ URL::asset('') }}vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-    <!-- Custom Theme Scripts -->
+    <script src="{{ URL::asset('') }}plugins/swall/sweetalert-dev.js"></script>
+      
     <script src="{{ URL::asset('') }}build/js/custom.min.js"></script>
 
     @yield('js')
