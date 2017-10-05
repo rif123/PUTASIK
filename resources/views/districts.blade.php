@@ -146,7 +146,7 @@
                           <td>{{$i}}</td>
                           <td>{{$val->name_districts}}</td>
                           <td>{{$val->name_city}}</td>
-                          <td><a href="{{url('admin/districts/edit').'?id='. $val->id_districts}}">Edit</a> || <a href="{{url('admin/districts/delete').'?id='. $val->id_districts}}">Delete</a></td>
+                          <td><a href="{{url('admin/districts/edit').'?id='. $val->id_districts}}">Edit</a> || <a href="#" onclick="deletProcess({{$val->id_districts}})" >Delete</a></td>
                         </tr>
                         <?php $i++; ?>
                           @endforeach
@@ -160,7 +160,25 @@
             </div>
           </div>
         </div>
-        
-        
+@section('js')
+  <script>
+
+      var  urlDelete = "{{url('/admin/districts/delete')}}";
+
+      function deletProcess(id_districts){
+        swal({
+        title: "Apakah anda yakin ?",
+        text: "Anda akan menghapus data.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete ",
+        closeOnConfirm: true,
+       }, function (){
+          window.location.href = urlDelete+'/'+id_districts;
+       });
+   }
+  </script>
+@endsection    
 
 @stop

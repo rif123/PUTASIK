@@ -122,7 +122,7 @@
                               <th>{{ $i }}</th>
                               <td>{{ $val['name_status_barang'] }}</td>
                               <td><a href="{{ url(route('editBarang').'?id='.$val['id_status_barang']) }}">Edit</a></td>
-                              <td><a href="{{ url(route('deleteBarang').'?id='.$val['id_status_barang']) }}">Delet</a></td>
+                              <td><a href="#" onclick="deletProcess({{ $val['id_status_barang'] }})">Delet</a></td>
                             </tr>
                             <?php $i++; ?>
                         @endforeach
@@ -137,7 +137,27 @@
             </div>
           </div>
         </div>
-        
+@section('js')
+  <script>
+
+      var  urlDelete = "{{url('/admin/delete-barang')}}";
+      
+      function deletProcess(id_status_barang){
+        swal({
+        title: "Apakah anda yakin ?",
+        text: "Anda akan menghapus data.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete ",
+        closeOnConfirm: true,
+       }, function (){
+          window.location.href = urlDelete+'/'+id_status_barang;
+       });
+   }
+
+  </script>
+@endsection    
         
 
 @stop

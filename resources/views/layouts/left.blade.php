@@ -38,8 +38,9 @@
                       <li><a href="{{ url(route('masterJenis')) }}">Jenis</a></li>
                       <li><a href="{{ url(route('masterStatus')) }}">Status</a></li>
                       <li><a href="{{ url(route('masterStatusBarang')) }}">Barang</a></li>
-                      <li><a href="{{ url(route('masterUser')) }}">User</a></li>
+                      <li><a href="{{ url(route('masterUser')) }}"> Type User</a></li>
                       <li><a href="{{ url(route('mastervillage')) }}">Village</a></li>
+                      <li><a href="{{ url(route('user')) }}">User Admin</a></li>
                       <li><a href="{{ url(route('menu.index')) }}">Menu</a></li>
                       <li><a href="{{ url(route('jabatan.index')) }}">Jabatan</a></li>
                       <li><a href="{{ url(route('role.index')) }}">Menu Role</a></li>

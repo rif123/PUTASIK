@@ -38,8 +38,12 @@
     <script src="{{ URL::asset('') }}plugins/swall/sweetalert-dev.js"></script>
       
     <script src="{{ URL::asset('') }}build/js/custom.min.js"></script>
+    <script src="{{ URL::asset('') }}plugins/swall/sweetalert-dev.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
     @yield('js')
 	
+    @include('layouts.errorMessage')
   </body>
 </html>

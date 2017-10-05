@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\BarangModel;  // untuk memanggil model
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class MasterStatusBarangController extends Controller
 {
@@ -15,13 +16,25 @@ class MasterStatusBarangController extends Controller
    }
 
    public function save(){
-   		$getData = Input::all();
+    $rules=[
+            'barang'=>'required|max::100',
+             ];
+     $messages=[
+            'barang.required'=>config('constants.ERROR_JML_WAJIB'),
+              ];
+        $validator=Validator::make(Input::all(), $rules, $messages);
+        if ($validator->passes()) {
 
+   	  	$getData = Input::all();
         $getInsert = new BarangModel;
         $getInsert->name_status_barang = Input::get('barang');
         $getInsert->save();
-
+        \Session::flash('insertSuccess', 'SUCCSESS');
         return redirect(route('masterStatusBarang'));
+      }else{
+        \Session::flash('insertError', 'Please input your data !!');
+        return redirect(route('masterStatusBarang'));
+      }
    }
 
    public function edit(){
@@ -43,8 +56,8 @@ class MasterStatusBarangController extends Controller
    		return redirect(route('masterStatusBarang'));
    }
 
-   public function delete(){
-   		$getDelete = BarangModel::find(Input::get('id'));
+   public function delete($id_status_barang){
+      $getDelete = BarangModel::find($id_status_barang);
    		$getDelete->delete();
 
    		return redirect(route('masterStatusBarang')); 

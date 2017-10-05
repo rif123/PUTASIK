@@ -27,5 +27,7 @@
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('') }}build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::asset('') }}plugins/swall/sweetalert.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
     @yield('header')
   </head>

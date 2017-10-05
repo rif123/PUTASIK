@@ -52,7 +52,7 @@
                   @if(empty($acceptData))  
                     <form class="form-horizontal form-label-left input_mask" action="{{ url(route('inputCityProcees')) }}" method="POST">
                   @else
-                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('update')) }}" method="POST">
+                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('updateHome')) }}" method="POST">
                   @endif 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Kota</label>
@@ -103,8 +103,8 @@
                   </div>
                   <div class="x_content">
 
-                    <table class="table">
-                      <thead>
+                    <table class="table" id="myTable">
+                      <thead> 
                         <tr>
                           <th>No</th>
                           <th>Nama Kota</th>
@@ -112,18 +112,7 @@
                           <th>Delet</th>
                         </tr>
                       </thead>
-                        <?php $i = 1; ?>
-                          <tbody>
-                        @foreach($listData as $key => $val)
-                            <tr>
-                              <th>{{ $i }}</th>
-                              <td>{{ $val['name_city'] }}</td>
-                              <td><a href=" {{ url('/admin/editCity').'?id='.$val['id_city'] }} ">Edit</a></td>
-                              <td><a href="{{ url('/admin/deleteCity').'?id='.$val['id_city'] }}">Delet</a></td>
-                            </tr>
-                           <?php  $i++; ?>
-                        @endforeach
-                          </tbody>
+                        
                     </table>
 
                   </div>
@@ -134,7 +123,78 @@
             </div>
           </div>
         </div>
-        
-        
+@section('js')
+  <script>
+
+      var  urlDelete = "{{url('/admin/deleteCity')}}";
+      var  urlAjaxTable = "{{url(route('city.indexAjax'))}}";
+      var  urlEdit = "{{url('/admin/editCity')}}";
+      
+      function deletProcess(id_city){
+        swal({
+        title: "Apakah anda yakin ?",
+        text: "Anda akan menghapus data.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete ",
+        closeOnConfirm: true,
+       }, function (){
+          window.location.href = urlDelete+'/'+id_city;
+       });
+   }
+
+
+  $(document).ready(function(){
+    $('#myTable').DataTable({
+       "processing": false,
+        "bFilter": false,
+        "bInfo": false,
+        "bLengthChange": false,
+        "serverSide": true,
+      "ajax" :{
+          "url": urlAjaxTable,
+             "type": "GET"
+      },
+       "columns" :[
+          {"data" :"no"},
+          {"data" :"name_city"},
+          { "render": function (data, type, row, meta) {
+
+                        var edit = $('<a><button>')
+                                    .attr('class', "btn bg-blue-grey waves-effect edit-menu")
+                                    .attr('href',urlEdit+'/'+row.id_city)
+                                    .text('Edit')
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+
+                        return edit ;
+                     }
+            },
+             { "render": function (data, type, row, meta) {
+
+                        var del = $('<a><button>')
+                                    .attr('class', "btn bg-blue-grey waves-effect edit-menu")
+                                    .attr('onclick', "deletProcess('"+row.id_city+"')")
+                                    .text('delete')
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+
+
+                        return del ;
+                     }
+            },
+
+       ]
+
+       
+      });
+   });
+
+  </script>
+@endsection    
+    
 
 @stop

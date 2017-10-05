@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JenisModel;  // untuk memanggil model
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class MasterJenisController extends Controller
 {
@@ -27,13 +28,28 @@ class MasterJenisController extends Controller
      */
     public function saveJenis()
     {
+    $rules=[
+            'jenis'=>'required',
+             ];
+    $messages=[
+            'jenis'=>config('constants.ERROR_JML_WAJIB'),
+             ];
+    $validator=Validator::make(Input::all(), $rules, $messages);
+    if ($validator->passes()) {
+
         $getData = Input::all();
-        
         $getInsert = new JenisModel;
         $getInsert->name_jenis = $getData['jenis'];
         $getInsert->save();
-
+        \Session::flash('insertSuccess', 'SUCCSESS');
+         return redirect(route('masterJenis')); 
+     }else{
+        \Session::flash('insertError', 'Please input your data!');
         return redirect(route('masterJenis'));
+     }        
+
+       
+
     }
 
     /**
@@ -77,9 +93,9 @@ class MasterJenisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete()
+    public function delete($id_jenis)
     {
-        $getDelet = JenisModel::find(Input::get('id'));
+        $getDelet = JenisModel::find($id_jenis);
         $getDelet->delete();
 
         return redirect(route('masterJenis'));

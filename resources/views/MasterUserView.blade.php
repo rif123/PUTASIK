@@ -27,7 +27,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>User <small>pekerjaan umun kota tasik</small></h2>
+                    <h2>Type User <small>pekerjaan umun kota tasik</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -57,7 +57,7 @@
 
                   @endif
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">User</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type User</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="text" class="form-control" placeholder="" name="user" value="{{ !empty($accept[0]['name_type']) ? $accept[0]['name_type'] : '' }}">
                         </div>
@@ -87,7 +87,7 @@
              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2> Data User  <small>data perkerjaan umum</small></h2>
+                    <h2> Data Type User  <small>data perkerjaan umum</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -111,7 +111,7 @@
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>Name User</th>
+                          <th>Name Type User</th>
                           <th>Edit</th>
                           <th>Delet</th>
                         </tr>
@@ -123,7 +123,7 @@
                               <th>{{ $no }}</th>
                               <td>{{ $val['name_type'] }}</td>
                               <td><a href="{{ url(route('editUser').'?id='.$val['id_type_user']) }}">Edit</a></td>
-                              <td><a href="{{ url(route('deleteUser').'?id='.$val['id_type_user']) }}">Delet</a></td>
+                              <td><a href="#" onclick="deletProcess({{$val['id_type_user']}})">Delet</a></td>
                             </tr>
                           <?php $no++; ?>
                           @endforeach
@@ -138,7 +138,27 @@
             </div>
           </div>
         </div>
-        
+@section('js')
+  <script>
+
+      var  urlDelete = "{{url('/admin/delete-user')}}";
+      
+      function deletProcess(id_type_user){
+        swal({
+        title: "Apakah anda yakin ?",
+        text: "Anda akan menghapus data.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete ",
+        closeOnConfirm: true,
+       }, function (){
+          window.location.href = urlDelete+'/'+id_type_user;
+       });
+   }
+
+  </script>
+@endsection    
         
 
 @stop

@@ -23,11 +23,11 @@
 
             <div class="row">
               
-              <!-- form Jenis -->
+              <!-- form Kota -->
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Jenis <small>pekerjaan umun kota tasik</small></h2>
+                    <h2>User Admin<small>pekerjaan umun kota tasik</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -48,16 +48,22 @@
                   <div class="x_content">
                     <br/>
                   
-
-                  @if(empty($accept))
-                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('saveJenis')) }}" method="POST">
-                  @else
-                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('update')) }}" method="POST">
-                  @endif
+                    @if(empty(@accept))
+                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('saveUserAdm')) }}" method="POST">
+                    @else 
+                    <form class="form-horizontal form-label-left input_mask" action="{{ url(route('updateAdm')) }}" method="POST">
+                    @endif
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="" name="jenis" value="{{ !empty($accept[0]['name_jenis']) ? $accept[0]['name_jenis'] : '' }}">
+                          <input type="email" class="form-control" placeholder="Email" name="email" value="{{!empty($accept[0]['email']) ? $accept[0]['email'] : '' }}">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="password" class="form-control" placeholder="Password" name="password" value="{{!empty($accept[0]['password']) ? $accept[0]['password'] : '' }}">
                         </div>
                       </div>
                       
@@ -68,7 +74,7 @@
                           @if(empty($accept))
                             <button type="submit" class="btn btn-success">Simpan</button>
                           @else
-                            <input type="hidden" name="id" value="{{ $accept[0]['id_jenis'] }}">
+                            <input type="hidden" name="id" value="{{ $accept[0]['id_user'] }}">
                             <button type="submit" class="btn btn-success">Update</button>
                           @endif
                         </div>
@@ -77,15 +83,13 @@
                   </div>
                 </div>
               </div>
-              <!-- end form Jenis -->
-
-             
+              <!-- end form kota -->
 
               <!-- Show Data table-->
-             <div class="col-md-6 col-sm-6 col-xs-12">
+             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2> Data Jenis  <small>data perkerjaan umum</small></h2>
+                    <h2>User Admin<small>data perkerjaan umum</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -109,23 +113,25 @@
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>Jenis</th>
+                          <th>Email</th>
+                          <th>Password</th>
                           <th>Edit</th>
                           <th>Delet</th>
                         </tr>
                       </thead>
-                        <?php $i = 1 ?>
+                        <?php $i = 1; ?>
                           <tbody>
-                            @foreach($listData as $key => $val)
+                          @foreach($listData as $key => $val)
                             <tr>
                               <th>{{ $i }}</th>
-                              <td>{{ $val['name_jenis'] }}</td>
-                              <td><a href="{{ url('/admin/edit-data').'?id='.$val['id_jenis'] }}">Edit</a></td>
-                              <td><a href="#" onclick="deletProcess({{$val->id_jenis}})">Delet</a></td>
+                              <td>{{ $val['email'] }}</td>
+                              <td><?php echo "*****"; ?></td>
+                              <td><a href="{{ url('/admin/edit-adm').'?id='.$val['id_user'] }}">Edit</a></td>
+                              <td><a href="{{ url('/admin/delete-adm').'?id='.$val['id_user'] }}">Delet</a></td>
                             </tr>
-                            <?php $i++; ?>
-                            @endforeach
                           </tbody>
+                          <?php $i++; ?>
+                          @endforeach
                     </table>
 
                   </div>
@@ -137,25 +143,6 @@
           </div>
         </div>
         
-@section('js')
-  <script>
-
-      var  urlDelete = "{{url('/admin/delete')}}";
-
-      function deletProcess(id_jenis){
-        swal({
-        title: "Apakah anda yakin ?",
-        text: "Anda akan menghapus data.",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete ",
-        closeOnConfirm: true,
-       }, function (){
-          window.location.href = urlDelete+'/'+id_jenis;
-       });
-   }
-  </script>
-@endsection        
+        
 
 @stop

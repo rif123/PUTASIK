@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\VillageModel;  
 use App\Models\DistrictsModel as dm;  
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class MasterVillageController extends Controller
 {
@@ -17,14 +18,28 @@ class MasterVillageController extends Controller
     }
 
     public function save(){
-    	$getData = Input::all();
+     $rules=[
+            'village'=>'required',
+            'selectDistricts'=>'required',
+             ];
+     $messages=[
+            'village.required'=>config('constants.ERROR_JML_WAJIB'),
+            'selectDistricts.required'=>config('constants.ERROR_JML_WAJIB'),
+              ];
+        $validator=Validator::make(Input::all(), $rules, $messages);
+        if ($validator->passes()) {
 
-	  	$getInsert = new VillageModel;
-	  	$getInsert->name_village = $getData['village'];
-	  	$getInsert->id_districts = $getData['selectDistricts'];
-	  	$getInsert->save();
-
-	  	return redirect(route('mastervillage'));
+        	$getData = Input::all();
+    	  	$getInsert = new VillageModel;
+    	  	$getInsert->name_village = $getData['village'];
+    	  	$getInsert->id_districts = $getData['selectDistricts'];
+    	  	$getInsert->save();
+            \Session::flash('insertSuccess', 'SUCCES');
+            return redirect(route('mastervillage'));
+        }else{
+            \Session::flash('insertError', 'Please Input Your Data !!');
+    	  	return redirect(route('mastervillage'));
+        }
     }
 
     public function edit(){
@@ -45,11 +60,11 @@ class MasterVillageController extends Controller
 	     return redirect(route('mastervillage'));
     }
 
-    public function delete(){
-    	$getData = VillageModel::find(Input::get('id'));
+    public function delete($id_village){
+        $getData = VillageModel::find($id_village);
     	$getData->delete();
 
-    	 return redirect(route('mastervillageft'));
+    	 return redirect(route('mastervillage'));
     }
 
 }
